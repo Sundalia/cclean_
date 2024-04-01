@@ -1,0 +1,20 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+
+//цвет для элементов свайпера
+.swiper {
+    --swiper-theme-color: #FF6105;
+}
+
+@font-face {
+    font-family: "Comfortaa";
+    src: url("fonts/comfortaa/Comfortaa-VariableFont_wght.ttf");
+}
+
+@font-face {
+    font-family: "Oswald";
+    src: url("fonts/oswald/Oswald-Regular.ttf");
+}
