@@ -36,10 +36,11 @@
           transition-next="jump-up"
         >
           <q-tab-panel name="spring">
-            <div class="text-h4 q-mb-md">ГЕНЕРАЛЬНАЯ</div>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.</p>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.</p>
+            <PortfolioCard
+              :header="Генеральная"
+            />
           </q-tab-panel>
+
         </q-tab-panels>
       </template>
 
@@ -49,9 +50,13 @@
 
 <script>
 import { ref } from 'vue'
+import PortfolioCard from 'components/site_components/portfolio_page/subcomponents/PortfolioCard.vue'
 
   export default {
     name: 'PortfolioMenu',
+    components: {
+      PortfolioCard
+    },
     setup () {
     return {
       tab: ref('spring'),
@@ -64,6 +69,7 @@ import { ref } from 'vue'
 <style lang="scss" scoped>
 .portfolio_menu__container {
   margin-top: 3rem;
+  height: auto;
 }
 
 .portfolio_menu__splitter {
