@@ -1,5 +1,8 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -10,12 +13,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-zw4jhvw8l-uj5vwwhb1yn7x@%nc1dnwyvyp+y8=xrg92f0=8ji'
+SECRET_KEY = str(os.getenv("SECRET_KEY"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.getenv("DEBUG", default=0))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Application definition
 
@@ -31,6 +34,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'drf_yasg',
     'djoser',
+    'dotenv',
     'src.order.apps.OrderConfig',
     'src.user.apps.UserConfig',
     'src.lead.apps.LeadConfig',
@@ -75,11 +79,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'cclean',
-        'USER': 'cclean',
-        'PASSWORD': 'bobercurwa',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': str(os.getenv("SQL_DATABASE")),
+        'USER': str(os.getenv("SQL_USER")),
+        'PASSWORD': str(os.getenv("SQL_PASSWORD")),
+        'HOST': str(os.getenv("SQL_HOST")),
+        'PORT': str(os.getenv("SQL_PORT")),
     }
 }
 

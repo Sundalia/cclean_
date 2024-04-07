@@ -58,7 +58,8 @@ class CleaningTypeInclude(models.Model):
     # )
     include_list=models.ManyToManyField(
         CleaningTypeIncludeList,
-        verbose_name="Список что входит"
+        verbose_name="Список что входит",
+        blank=True
     )
     name=models.CharField(max_length=500, verbose_name='Категория(что входит в уборку)')
     created=models.DateTimeField(auto_now_add=True, verbose_name='Создано')
@@ -98,7 +99,8 @@ class CleaningTypeCanAddList(models.Model):
 class CleaningTypeCanAdd(models.Model):
     can_add_list=models.ManyToManyField(
         CleaningTypeCanAddList,
-        verbose_name="Список что можно добавить"
+        verbose_name="Список что можно добавить",
+        blank=True 
     )
     name=models.CharField(max_length=500, verbose_name='Категория(что можно добавить в уборку)')
     price=models.DecimalField(max_digits=9,decimal_places=2, verbose_name='Цена')
@@ -263,18 +265,26 @@ class Order(models.Model):
         on_delete=models.PROTECT,
         verbose_name='Заставленность вещами'
     )
-    class RoomChoices(models.TextChoices):
-        apartment='apart', _("Квартира")
-        office='office', _("Офис")
-        workshop='workshop', _("Производство/Мастерская")
-        house='house', _("Загородный дом")
-        yacht='yacht', _("Яхта")
+    # class RoomChoices(models.TextChoices):
+    #     apartment='apart', _("Квартира")
+    #     office='office', _("Офис")
+    #     workshop='workshop', _("Производство/Мастерская")
+    #     house='house', _("Загородный дом")
+    #     yacht='yacht', _("Яхта")
+        
+    ROOM_CHOICES= {
+        ("apartment", "Квартира"),
+        ("office", "Офис"),
+        ("workshop", "Производство"),
+        ("house", "Загородный дом"),
+        ("yacht", "Яхта")
+    }
         
     pollution_degree=models.ForeignKey(
         'PollutionDegree', 
         on_delete=models.PROTECT
     )
-    room_choices=models.CharField(choices=RoomChoices, default='apartment', verbose_name='Тип помещения')
+    room_choices=models.CharField(choices=ROOM_CHOICES, default='apartment', verbose_name='Тип помещения', max_length=100)
     cleaning_date=models.DateField(editable=True, blank=False, verbose_name='Дата уборки')
     cleaning_time=models.TimeField(editable=True, blank=False, verbose_name='Время')
     photo=models.ImageField(
@@ -344,14 +354,22 @@ class FeedBack(models.Model):
     )
     feedback_body=models.TextField(max_length=1000, verbose_name='Отзыв')
     
-    class Ratingchoice(models.IntegerChoices):
-        very_bad='1', _("Очень плохо")
-        bad='2', _("Плохо")
-        middle='3', _("Удовлетворительно")
-        good='4', _("Хорошо")
-        amazing='5', _("Восхитительно")
+    # class Ratingchoice(models.IntegerChoices):
+    #     very_bad='1', _("Очень плохо")
+    #     bad='2', _("Плохо")
+    #     middle='3', _("Удовлетворительно")
+    #     good='4', _("Хорошо")
+    #     amazing='5', _("Восхитительно")
+    
+    RATING_CHOICES = [
+        (1, "Очень плохо"),
+        (2, "Плохо"),
+        (3, "Удовлетворительно"),
+        (4, "Хорошо"),
+        (5, "Восхитительно")
+    ]
         
-    feedback_rating=models.IntegerField(choices=Ratingchoice, default='amazing', verbose_name='Рейтинг')
+    feedback_rating=models.IntegerField(choices=RATING_CHOICES, default='amazing', verbose_name='Рейтинг')
     created=models.DateTimeField(auto_now_add=True, verbose_name='Создано')
     updated=models.DateTimeField(auto_now=True, verbose_name='Обновлено')
     is_published=models.BooleanField(default=True, verbose_name='Опубликовано')
