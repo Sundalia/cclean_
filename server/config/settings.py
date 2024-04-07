@@ -18,7 +18,7 @@ SECRET_KEY = str(os.getenv("SECRET_KEY"))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv("DEBUG", default=0))
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'ccleantest.tw1.ru', '92.255.109.20']
 
 # Application definition
 
@@ -150,11 +150,16 @@ AUTH_USER_MODEL='user.User'
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:8080', 
-    # заменить на продакшене порт
+    'http://127.0.0.1',
+    'http://ccleantest.tw1.ru:8080',
+    'http://92.255.109.20:8080'
 )
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8080',
+    'http://localhost:8080', 
+    'http://127.0.0.1',
+    'http://ccleantest.tw1.ru:8080',
+    'http://92.255.109.20:8080'
 ]
 
 CORS_ALLOW_METHODS = [
