@@ -10,6 +10,7 @@ services:
       - 8000:8000
     env_file:
       - ./server/.env
+    entrypoint: ./server/docker-entrypoint.sh
     depends_on:
       - db
 
@@ -21,14 +22,13 @@ services:
     environment:
       - POSTGRES_USER=cclean
       - POSTGRES_PASSWORD=bobercurwa
-      - POSTGRES_DB=cclean
 
   client:
     build: ./client
     volumes:
       - ./client:/usr/src/client
     ports:
-      - 8080:80
+      - 80:80
     depends_on:
       - server
   

@@ -12,7 +12,7 @@ RUN npm install
 RUN quasar build
 
 # production stage
-FROM nginx:1.17.5-alpine as production-stage
+FROM nginx:alpine as production-stage
 COPY --from=build-stage /client/dist/spa /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
