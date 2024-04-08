@@ -149,17 +149,17 @@ DJOSER = {
 AUTH_USER_MODEL='user.User'
 
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:8080', 
+    'http://localhost', 
     'http://127.0.0.1',
-    'http://ccleantest.tw1.ru:8080',
-    'http://92.255.109.20:8080'
+    'http://ccleantest.tw1.ru',
+    'http://92.255.109.20'
 )
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8080', 
+    'http://localhost', 
     'http://127.0.0.1',
-    'http://ccleantest.tw1.ru:8080',
-    'http://92.255.109.20:8080'
+    'http://ccleantest.tw1.ru',
+    'http://92.255.109.20'
 ]
 
 CORS_ALLOW_METHODS = [
