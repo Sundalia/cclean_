@@ -5,11 +5,11 @@ import axios from 'axios'
 // const csrfToken = Cookies.get('XSRF-TOKEN')
 
 const api = axios.create({ 
-  baseURL: 'http://localhost:8000/api/',
+  baseURL: 'http://ccleantest.tw1.ru:8000/api/',
 })
 
 const accounts = axios.create({
-  baseURL: 'http://localhost:8000/auth'
+  baseURL: 'http://ccleantest.tw1.ru:8000/auth'
 })
 
 export default boot(({ app }) => {
