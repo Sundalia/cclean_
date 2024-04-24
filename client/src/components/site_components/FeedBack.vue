@@ -25,8 +25,12 @@
       }"
   
     >
-      <swiper-slide v-for="i in 10" :key="i">
-        <FeedBackCell/>
+      <swiper-slide v-for="i in feedback" :key="i">
+        <FeedBackCell
+          :name="i.name"
+          :stars="i.feedback_rating"
+          :body="i.feedback_body"
+        />
       </swiper-slide>
     </swiper>
   </div>
@@ -39,6 +43,7 @@ import { FreeMode, Pagination } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/free-mode'
 import 'swiper/css/pagination'
+import { ref } from 'vue'
 
 
   export default {
@@ -50,13 +55,23 @@ import 'swiper/css/pagination'
     },
     data() {
       return {
-        
+        feedback: ref([]),
       }
     },
     setup() {
       return {
         modules: [FreeMode, Pagination],
       }
+    },
+    beforeCreate() {
+      this.$api.get('/feedback.json')
+        .then(res => {
+          console.log(res.data.map(i => i.feedback_rating))
+          this.feedback = res.data.map(i => i)
+        })
+        .catch(err => {
+          console.log(err.data)
+        })
     }
   }
 </script>

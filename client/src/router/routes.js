@@ -27,6 +27,7 @@ const routes = [
       { path: 'order_list', component: () =>import('pages/Account/MyOrdersPage.vue') },
       { path: 'promo', component: () =>import('pages/Account/PromoPage.vue') },
       { path: 'pay', component: () =>import('pages/Account/PayPage.vue') },
+      { path: 'support', component: () =>import('pages/Account/SupportPage.vue') },
     ],
   },
   {

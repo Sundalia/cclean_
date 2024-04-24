@@ -8,12 +8,13 @@ from .models import *
 # admin.site.register(CleaningTypeCanAdd)
 
 admin.site.register(FurnitureCluttered)
-admin.site.register(ThingsCluttered)
 admin.site.register(PollutionDegree)
 admin.site.register(Promo)
 admin.site.register(Order)
 admin.site.register(OrderStatus)
 admin.site.register(FeedBack)
+admin.site.register(PortfolioImage)
+admin.site.register(RoomType)
 
 
 
@@ -132,7 +133,7 @@ class CleaningTypeLocationAdmin(admin.ModelAdmin):
   )
   
   
-"""Типы уборки включая локации"""
+"""Типы уборки включая локации и изображения портфолио"""
 class LocationInline(admin.TabularInline):
   model=CleaningTypeLocation
   fields=(
@@ -144,10 +145,21 @@ class LocationInline(admin.TabularInline):
   extra=0
   show_change_link=True
   view_on_site=False
+  
+class PortfolioInline(admin.TabularInline):
+  model=PortfolioImage
+  fields=(
+    'name',
+    'picture',
+    'description'
+  )
+  extra=0
+  show_change_link=True
+  view_on_site=False
 
 @admin.register(CleaningType)
 class CleaningTypeAdmin(admin.ModelAdmin):
-  inlines=[LocationInline]
+  inlines=[LocationInline, PortfolioInline]
   list_display=(
     'name',
     'description',

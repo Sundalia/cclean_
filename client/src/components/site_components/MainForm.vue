@@ -1,9 +1,9 @@
 <template>
   <div class="main_form__container">
     <div class="main_form_box">
-      <q-form 
+      <q-form
       class="row main_form"
-      @submit="onSubmit()"
+      @submit="onSubmit"
     >
       <div class="main_form__item">
         <q-select 
@@ -32,7 +32,7 @@
           class="main_form__item_input"
           input-style="text-align: center"
           v-model="counter_room"
-          v-bind:value ="counter_room"
+          :value ="counter_room"
           label="&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Сколько комнат:"
           mask="#"
           fill-mask="0"
@@ -65,7 +65,7 @@
           class="main_form__item_input"
           input-style="text-align: center "
           v-model="counter_toilet"
-          v-bind:value="counter_toilet"
+          :value="counter_toilet"
           label="&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Сколько санузлов:"
           mask="#"
           fill-mask="0"
@@ -88,7 +88,7 @@
         <q-input
           input-style="text-align: center "
           bg-color="grey"
-          v-bind:value="phone"
+          :value="phone"
           v-model="phone"
           mask="+7(###)###-##-##"
           placeholder="+7(999)999-99-99"
@@ -119,12 +119,14 @@
 <script>
 import { ref } from 'vue'
 import { api } from 'src/boot/axios'
+import { useQuasar } from 'quasar'
 
 export default({
   name: 'MainForm',
-  data() {
-    return {
-      clean_type: [
+  setup() {
+    const $q = useQuasar()
+
+    const clean_type = [
         'Генеральная', 
         'Поддерживающая', 
         'Послестроительная', 
@@ -133,17 +135,51 @@ export default({
         'Загородный дом', 
         'Уборка яхты',
         'Глубокая чистка пола'
-      ],
-      clean_type_val: ref("Генеральная"),
-      counter_room: 1,
-      counter_toilet: 1,
-      min:1,
-      max: 9,
-      phone: '',
-    }
-  },
-  setup() {
+      ]
+      const clean_type_val = ref("Генеральная")
+      const counter_room = ref(1)
+      const counter_toilet = ref(1)
+      const min = 1
+      const max = 9
+      const phone = ref('')
 
+    return {
+      clean_type,
+      clean_type_val,
+      counter_room,
+      counter_toilet,
+      min,
+      max,
+      phone,
+      onSubmit() {
+        let cutedPhone = phone.value.replace(/[^0-9+]+/gi, '')
+        $q.notify({
+          position: 'center',
+          color: 'accent',
+          textColor: 'white',
+          message: 'Запрос отправлен, ожидайте звонка в ближайшее время'
+        })
+        api.post("/leads/", {
+          cleaning_type: clean_type_val.value,
+          counter_room: counter_room.value,
+          counter_toilet: counter_toilet.value,
+          phone_number: cutedPhone
+        })
+        .catch((err) => {
+          $q.notify({
+            color: 'red',
+            textColor: 'white',
+            position: 'center',
+            message: `${JSON.stringify(err.response.data).replace(/[`",.<>\\{\\}\\[\]]/gi, '')}`
+          })
+        })
+          clean_type.value ='Генеральная'
+          counter_room.value = 1
+          counter_toilet.value = 1
+          phone.value = ''
+
+      }
+    }
   },
   methods: {
     decrementRoom() {
@@ -157,21 +193,7 @@ export default({
     },
     incrementToilet() {
       this.counter_toilet = this.counter_toilet === this.max ? this.max : this.counter_toilet +1
-    },
-    onSubmit() {
-      let cutedPhone=this.phone.replace(/[^0-9+]+/gi, '')
-      api.post("/leads/", {
-        cleaning_type: this.clean_type_val,
-        counter_room: this.counter_room,
-        counter_toilet: this.counter_toilet,
-        phone_number: cutedPhone
-      })
     }
-  },
-  mounted() {
-  },
-  calculated() {
-
   }
 })
 </script>

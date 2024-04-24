@@ -123,6 +123,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -136,7 +137,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-        # 'rest_framework.simplejwt.authentication.JWTAuthentication'
+        'rest_framework.simplejwt.authentication.JWTAuthentication'
     ]
 }
 
@@ -149,14 +150,14 @@ DJOSER = {
 AUTH_USER_MODEL='user.User'
 
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost', 
+    'http://localhost:8080', 
     'http://127.0.0.1',
     'http://ccleantest.tw1.ru',
     'http://92.255.109.20'
 )
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost', 
+    'http://localhost:8080', 
     'http://127.0.0.1',
     'http://ccleantest.tw1.ru',
     'http://92.255.109.20'

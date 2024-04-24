@@ -6,7 +6,7 @@ class OrderAPIView(viewsets.ModelViewSet):
     queryset=Order.objects.all()
     serializer_class=OrderSerializer
     permission_classes = [
-        permissions.IsAuthenticated
+        # permissions.IsAuthenticated
     ]
     
 class CleaningTypeAPIView(viewsets.ModelViewSet):
@@ -37,10 +37,6 @@ class FurnitureClutteredAPIView(viewsets.ModelViewSet):
     queryset=FurnitureCluttered.objects.all()
     serializer_class=FurnitureClutteredSerialier
     
-class ThingsClutteredAPIView(viewsets.ModelViewSet):
-    queryset=ThingsCluttered.objects.all()
-    serializer_class=ThingsClutteredSerialier
-    
 class PollutionDegreeAPIView(viewsets.ModelViewSet):
     queryset=PollutionDegree.objects.all()
     serializer_class=PollutionDegreeSerialier
@@ -58,3 +54,19 @@ class OrderStatusAPIView(viewsets.ModelViewSet):
     permission_classes = [
         permissions.IsAuthenticated
     ]
+    
+class PortfolioImageAPIView(viewsets.ModelViewSet):
+    queryset=PortfolioImage.objects.all()
+    serializer_class=PortfolioImageSerializer
+    # permission_classes=[
+    #     permissions.IsAuthenticated
+    # ]
+    
+class FeedbackAPIView(viewsets.ModelViewSet):
+    queryset=FeedBack.objects.all()
+    serializer_class=FeedBackSerializer
+    
+    
+class RoomTypeAPIView(viewsets.ModelViewSet):
+    queryset=RoomType.objects.all()
+    serializer_class=RoomTypeSerializer

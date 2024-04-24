@@ -11,10 +11,12 @@ router.register(r'cleaning_type_include_list', CleaningTypeIncludeListAPIView)
 router.register(r'cleaning_type_can_add', CleaningTypeCanAddAPIView)
 router.register(r'cleaning_type_include_list', CleaningTypeCanAddListAPIView)
 router.register(r'furniture_cluttered', FurnitureClutteredAPIView)
-router.register(r'thing_cluttered', ThingsClutteredAPIView)
 router.register(r'pollution_degree', PollutionDegreeAPIView)
 router.register(r'promo', PromoAPIView)
 router.register(r'order_status', OrderStatusAPIView)
+router.register(r'portfolio_image', PortfolioImageAPIView)
+router.register(r'feedback', FeedbackAPIView)
+router.register(r'room_type', RoomTypeAPIView)
 
 
 urlpatterns = [

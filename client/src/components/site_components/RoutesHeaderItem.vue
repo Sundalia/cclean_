@@ -1,6 +1,6 @@
 <template>
     <q-header class="routes_header">
-        <q-tabs class="routes_header__tabs">
+        <q-tabs class="routes_header__tabs" swipeable>
             <q-route-tab to="spring_cleaning" label="Генеральная" class="routes_header__tab"/>
             <q-route-tab to="maintenance_cleaning" label="Поддерживающая" class="routes_header__tab"/>
             <q-route-tab to="post_construction_cleaning" label="Послестроительная" class="routes_header__tab"/>

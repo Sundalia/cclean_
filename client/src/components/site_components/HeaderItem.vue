@@ -7,8 +7,9 @@
                     <q-menu class="main_header__burger_menu">
 
                         <q-expansion-item
-                            label="Услуги"
+                            label="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Услуги"
                             expand-separatior
+                            :header-style="{textAlign: 'center'}"
                             class="main_header__burger_menu_expansion"
                         >
                             <q-tabs vertical class="main_header__burger_menu_tabs">
@@ -211,6 +212,7 @@ export default({
     text-transform: uppercase;
     font-family: 'Oswald';
     font-weight: bold;
+    text-justify: center;
     color: $dark;
 }
 

@@ -1,8 +1,6 @@
 <template>
         <q-carousel
         v-model="slide"
-        transition-prev="scale"
-        transition-next="scale"
         swipeable
         animated
         autoplay
@@ -30,7 +28,7 @@
         </q-carousel-slide>
 
         <q-carousel-slide 
-          name="style" 
+          name="style2" 
           class="column no-wrap flex-center"
           img-src="../../../../assets/cleaning_photos/do_posle.png"
         ></q-carousel-slide>

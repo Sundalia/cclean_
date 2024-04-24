@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django.core.validators import FileExtensionValidator
 from django.urls import reverse
 from src.user.models import User
+from PIL import Image
 
 
 
@@ -27,6 +28,46 @@ class CleaningType(models.Model):
     
     def get_absolute_url(self):
         return reverse("cleaning_type_detail", kwargs={"pk": self.pk})
+    
+    
+class PortfolioImage(models.Model):
+    cleaning_type=models.ForeignKey(
+         CleaningType,
+         on_delete=models.CASCADE,
+         verbose_name='Тип уборки',
+         related_name='portfolio'
+     )
+    name=models.CharField(max_length=100, verbose_name='название изображения', default='Название', unique=True)
+    picture=models.ImageField(
+        upload_to='portfolio/%Y/%m/%d/',
+        verbose_name='изображение',
+        
+    )
+    description=models.TextField(max_length=2000, verbose_name='описание')
+    created=models.DateTimeField(auto_now_add=True, verbose_name='Создано')
+    updated=models.DateTimeField(auto_now=True, verbose_name='Обновлено')
+    is_published=models.BooleanField(default=True, verbose_name='Опубликовано')
+    
+    class Meta:
+        verbose_name='Изображение портфолио'
+        verbose_name_plural='Изображения портфолио'
+        permissions=[
+            
+        ]
+        
+    def resize_save(self, *args, **kwargs):
+        super(PortfolioImage, self).save(*args, **kwargs)
+        img=Image.open(self.picture.path)
+        if img.width > 800 or img.height > 600:
+            output_size= (800, 400)
+            img.thumbnail(output_size)
+            img.save(self.picture.path)
+    
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse("portfolio_image_detail", kwargs={"pk": self.pk})
         
     
     
@@ -49,13 +90,6 @@ class CleaningTypeIncludeList(models.Model):
     
 
 class CleaningTypeInclude(models.Model):
-    # cleaning_type_locatiion=models.ForeignKey(
-    #     CleaningTypeLocation,
-    #     on_delete=models.PROTECT,
-    #     related_name='include',
-    #     verbose_name='Локация уборки(включено)',
-    #     blank=True
-    # )
     include_list=models.ManyToManyField(
         CleaningTypeIncludeList,
         verbose_name="Список что входит",
@@ -176,26 +210,6 @@ class FurnitureCluttered(models.Model):
     
 
 
-class ThingsCluttered(models.Model):
-    name=models.CharField(max_length=100, verbose_name='Степень заставленности вещами')
-    description=models.CharField(max_length=2000, verbose_name='Справка')
-    created=models.DateTimeField(auto_now_add=True, verbose_name='Создано')
-    updated=models.DateTimeField(auto_now=True, verbose_name='Обновлено')
-    is_published=models.BooleanField(default=True, verbose_name='Опубликовано')
-    
-    class Meta:
-        verbose_name='Степень заставленности вещами'
-        verbose_name_plural='Степень заставленности вещами'
-    
-    def __str__(self):
-        return self.name
-    
-    def get_absolute_url(self):
-        return reverse("things_cluttered_detail", kwargs={"pk": self.pk})
-
-
-
-
 class PollutionDegree(models.Model):
     name=models.CharField(max_length=100, verbose_name='Степень загрязнения')
     description=models.CharField(max_length=2000, verbose_name='Справка')
@@ -240,6 +254,25 @@ class Promo(models.Model):
     
     def get_absolute_url(self):
         return reverse("promo_detail", kwargs={"pk": self.pk})    
+    
+    
+    
+class RoomType(models.Model):
+    name=models.CharField(max_length=150, verbose_name='Название помещения')
+    price=models.DecimalField(max_digits=9,decimal_places=2, verbose_name='Цена за кв.м')
+    created=models.DateTimeField(auto_now_add=True, verbose_name='Создано')
+    updated=models.DateTimeField(auto_now=True, verbose_name='Обновлено')
+    is_published=models.BooleanField(default=True, verbose_name='Опубликовано')
+    
+    class Meta:
+        verbose_name='Тип помещения'
+        verbose_name_plural='Типы помещений'
+    
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse("room_type_detail", kwargs={"pk": self.pk})    
 
 
 
@@ -250,54 +283,53 @@ class Order(models.Model):
         verbose_name='Клиент'
     )
     cleaning_type=models.ForeignKey(
-        'CleaningType', 
+        CleaningType, 
         on_delete=models.PROTECT, 
-        verbose_name='Тип уборки'
+        verbose_name='Тип уборки',
+        blank=True,
+        null=True
     )
     square=models.DecimalField(max_digits=8, decimal_places=2, verbose_name='Площадь помещения')
     furniture_cluttered=models.ForeignKey(
-        'FurnitureCluttered',
+        FurnitureCluttered,
         on_delete=models.PROTECT,
-        verbose_name='Заставленность мебелью'
+        verbose_name='Заставленность мебелью',
+        blank=True,
+        null=True
     )
-    things_cluttered=models.ForeignKey(
-        'ThingsCluttered', 
-        on_delete=models.PROTECT,
-        verbose_name='Заставленность вещами'
-    )
-    # class RoomChoices(models.TextChoices):
-    #     apartment='apart', _("Квартира")
-    #     office='office', _("Офис")
-    #     workshop='workshop', _("Производство/Мастерская")
-    #     house='house', _("Загородный дом")
-    #     yacht='yacht', _("Яхта")
-        
-    ROOM_CHOICES= {
-        ("apartment", "Квартира"),
-        ("office", "Офис"),
-        ("workshop", "Производство"),
-        ("house", "Загородный дом"),
-        ("yacht", "Яхта")
-    }
         
     pollution_degree=models.ForeignKey(
-        'PollutionDegree', 
-        on_delete=models.PROTECT
+        PollutionDegree, 
+        on_delete=models.PROTECT,
+        verbose_name='Степень загрязнения',
+        blank=True,
+        null=True
     )
-    room_choices=models.CharField(choices=ROOM_CHOICES, default='apartment', verbose_name='Тип помещения', max_length=100)
+    room_type = models.ForeignKey(
+        RoomType,
+        on_delete=models.PROTECT,
+        verbose_name='Тип помещения',
+        blank=True,
+        null=True
+    )
     cleaning_date=models.DateField(editable=True, blank=False, verbose_name='Дата уборки')
     cleaning_time=models.TimeField(editable=True, blank=False, verbose_name='Время')
     photo=models.ImageField(
         upload_to='media/orders/%Y/%m/%D/', 
         blank=True,
         null=True,
-        validators=[FileExtensionValidator(allowed_extensions=['png','jpg','webp'])],
         verbose_name='Фото квартиры'
     )
     window_clean=models.BooleanField(default=False, verbose_name='Мыть ли окна?')
     address=models.CharField(max_length=255, verbose_name='Адрес')
     comment=models.TextField(max_length=1000, verbose_name='Пожелания/комментарии')
-    promo=models.ForeignKey('Promo', on_delete=models.PROTECT, verbose_name='ПРОМОКОД')
+    promo=models.ForeignKey(
+        Promo, 
+        on_delete=models.PROTECT, 
+        verbose_name='ПРОМОКОД',
+        blank=True,
+        null=True
+    )
     price=models.DecimalField(max_digits=9,decimal_places=2, verbose_name='Цена')
     created=models.DateTimeField(auto_now_add=True, verbose_name='Создано')
     updated=models.DateTimeField(auto_now=True, verbose_name='Обновлено')
@@ -306,7 +338,6 @@ class Order(models.Model):
         upload_to='media/orders/cleaner/%Y/%m/%D/', 
         blank=True,
         null=True,
-        validators=[FileExtensionValidator(allowed_extensions=['png','jpg','webp'])],
         verbose_name='Фото квартиры после уборки'
     )
     
@@ -353,13 +384,6 @@ class FeedBack(models.Model):
         verbose_name='Заказ'
     )
     feedback_body=models.TextField(max_length=1000, verbose_name='Отзыв')
-    
-    # class Ratingchoice(models.IntegerChoices):
-    #     very_bad='1', _("Очень плохо")
-    #     bad='2', _("Плохо")
-    #     middle='3', _("Удовлетворительно")
-    #     good='4', _("Хорошо")
-    #     amazing='5', _("Восхитительно")
     
     RATING_CHOICES = [
         (1, "Очень плохо"),

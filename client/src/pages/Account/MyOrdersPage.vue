@@ -1,12 +1,17 @@
 <template>
   <div>
-    <p>MyOrdersPage</p>
+    <OrdersTable/>
   </div>
 </template>
 
 <script>
+import OrdersTable from 'src/components/account_components/OrdersTable.vue'
+
   export default {
-    name: 'MyOrdersPage'
+    name: 'MyOrdersPage',
+    components: {
+      OrdersTable
+    }
   }
 </script>
 

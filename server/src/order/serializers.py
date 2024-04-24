@@ -1,18 +1,30 @@
 from rest_framework import serializers
 from .models import *
 
+
+
+
+class RoomTypeSerializer(serializers.ModelSerializer):
+    model=RoomType
+    fields=(
+        'name',
+        'type',
+        'created',
+        'updated',
+        'is_published'
+    )
+
+
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model=Order
         fields=(
-            '''в последующем можно изменить запись полей на `__all__`'''
             'customer', 
             'cleaning_type', 
             'square', 
             'furniture_cluttered', 
-            'things_cluttered', 
             'pollution_degree',
-            'room_choices',
+            'room_type',
             'cleaning_date',
             'cleaning_time',
             'photo',
@@ -39,17 +51,7 @@ class FurnitureClutteredSerialier(serializers.ModelSerializer):
             'is_published'
         )
         
-class ThingsClutteredSerialier(serializers.ModelSerializer):
-    class Meta:
-        model=ThingsCluttered
-        fields=(
-            'name',
-            'description',
-            'created',
-            'updated',
-            'is_published'
-        )
-        
+
 class PollutionDegreeSerialier(serializers.ModelSerializer):
     class Meta:
         model=PollutionDegree
@@ -158,9 +160,26 @@ class CleaningTypeLocationSerializer(serializers.ModelSerializer):
         )
         
         
+class PortfolioImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=PortfolioImage
+        fields=(
+            'cleaning_type',
+            'name',
+            'picture',
+            'description',
+            'created',
+            'updated',
+            'is_published'
+        )
+        
+        
         
 class  CleaninigTypeSerializer(serializers.ModelSerializer):
     location=CleaningTypeLocationSerializer(
+        many=True
+    )
+    portfolio=PortfolioImageSerializer(
         many=True
     )
     
@@ -171,6 +190,20 @@ class  CleaninigTypeSerializer(serializers.ModelSerializer):
             'description',
             'subdescription',
             'location',
-            'price'
+            'price',
+            'portfolio'
     )
         
+        
+class FeedBackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=FeedBack
+        fields=(
+            'name',
+            'order',
+            'feedback_body',
+            'feedback_rating',
+            'created',
+            'updated',
+            'is_published'
+        )
