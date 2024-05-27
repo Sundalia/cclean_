@@ -2,7 +2,7 @@
   <div class="authentication_form__container">
     <q-form
       class="authentication_form__form"
-      @submit="onSubmit()"
+      @submit="onSubmit"
     >
       <EmptyHeader/>
       <div class="row">
@@ -21,6 +21,7 @@
         :value="phone"
         mask="+7(###)###-##-##"
         placeholder="+7(999)999-99-99"
+        color="accent"
       ></q-input>
 
       <q-input
@@ -42,11 +43,11 @@
       </q-input>
 
       <div class="authentication_form__submit_box">
-        <q-btn 
+        <q-btn
           class="authentication_form__submit"
-          label="Войти"
-          type="submit" 
-          color="primary"
+          label="Получить смс"
+          type="submit"
+          color="accent"
         />
       </div>
     </q-form>
@@ -56,8 +57,8 @@
 <script>
 import EmptyHeader from './subcomponents/EmptyHeader.vue'
 import { ref } from 'vue'
-import { accounts } from 'src/boot/axios'
-import { useQuasar } from 'quasar'
+import { useAuthStore } from 'src/stores/authStore'
+// import { useRouter } from 'vue-router'
 
 
   export default {
@@ -65,46 +66,28 @@ import { useQuasar } from 'quasar'
     components: {
       EmptyHeader
     },
-    // data() {
-    //   return {
-    //     phone: '',
-    //     password: '',
-    //     isPassword: ref(true)
-    //   }
-    // },
     setup() {
-      const $q = useQuasar()
-
+      // const router = useRouter()
+      const store = useAuthStore()
+      const login = () => store.login(phone, password)
       const phone = ref('')
       const password = ref('')
       const isPassword = ref(true)
+
+
 
       return {
         phone,
         password,
         isPassword,
 
-        onSubmit() {
-          let cutedPhone = this.phone.replace(/[^0-9+]+/gi, '')
-          accounts.post('/token/login', {
-            mobile: cutedPhone,
-            password: this.password
-          })
-          .then((res) => {
-            if(res.status == 200) {
-              console.log(res)
-            }
-          })
-          .catch((err) => {
-            $q.notify({
-              color: 'red-5',
-              textColor: 'white',
-              message: `${err.response.data}`,
-              position: 'center'
-            })
-          })
+        async onSubmit() {
+          await login(phone, password)
         }
       }
+    },
+    methods: {
+
     }
   }
 </script>
@@ -176,12 +159,12 @@ import { useQuasar } from 'quasar'
   font-family: 'Comfortaa';
 }
 
-.authentication_form__router_tab_text { 
+.authentication_form__router_tab_text {
   text-decoration: none;
   color: $accent;
 }
 
-.authentication_form__router_tab_text:hover { 
+.authentication_form__router_tab_text:hover {
   font-weight: bold;
 }
 

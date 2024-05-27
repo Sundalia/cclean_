@@ -2,9 +2,8 @@
   <q-header class="row account_header">
       <q-toolbar class="account_header__toolbar">
         <div class="col acoount_header__customer_info">
-          <div class="row account_header__customer_name">CUSTOMER NAME</div>
-          <div class="row account_header__customer_phone">+7(999)99999999</div>
-          <div class="row account_header__customer_mail">customer@mail.com</div>
+          <div class="row account_header__customer_name">{{ customer_name }}</div>
+          <div class="row account_header__customer_phone">+{{ customer_mobile }}</div>
         </div>
         <q-space/>
 
@@ -15,7 +14,7 @@
               Перейти на главную сайта
             </q-tooltip>
             <q-avatar square size="1.5rem" >
-                <img class="main_header__logo_img" src="../../assets/icons/cclean_logo.svg"/> 
+                <img class="main_header__logo_img" src="../../assets/icons/cclean_logo.svg"/>
             </q-avatar>
             <router-link class="account_header__logo_name" to="/">
                 C-CLEAN
@@ -28,7 +27,7 @@
             </q-tooltip>
             ПОДДЕРЖКА
           </q-btn>
-          <q-btn class="account_header__toolitem">
+          <q-btn class="account_header__toolitem" @click="logoutUser">
             <q-tooltip>
               Выход из аккаунта
             </q-tooltip>
@@ -39,25 +38,29 @@
         <q-btn flat icon="menu" class="q-mg-lg account_header__burger">
           <q-menu>
             <q-btn-group flat class="row account_header__toolitems">
-            <q-btn flat class="row account_header__toolitem">
+            <q-btn flat class="row account_header__toolitem" type="a" to="/">
               <q-tooltip>
                 Перейти на главную сайта
               </q-tooltip>
               <q-avatar square size="1.5rem" >
-                  <img class="main_header__logo_img" src="../../assets/icons/cclean_logo.svg"/> 
+                  <img class="main_header__logo_img" src="../../assets/icons/cclean_logo.svg"/>
               </q-avatar>
-              <router-link class="account_header__logo_name" to="/">
                   C-CLEAN
-              </router-link>
             </q-btn>
 
-            <q-btn class="account_header__toolitem" type="a" to="support">
+            <q-btn
+              class="account_header__toolitem"
+              type="a"
+              href="https://t.me/ccleansp"
+              target="_blank"
+            >
               <q-tooltip>
                 Написать обращение в поддержку
               </q-tooltip>
-              ПОДДЕРЖКА
+                ПОДДЕРЖКА
             </q-btn>
-            <q-btn class="account_header__toolitem">
+
+            <q-btn class="account_header__toolitem" @click="logoutUser">
               <q-tooltip>
                 Выход из аккаунта
               </q-tooltip>
@@ -73,10 +76,35 @@
 </template>
 
 <script>
-
+import { useAuthStore } from "stores/authStore"
+import { ref } from'vue'
 
   export default {
-    name: 'AccountHeader'
+    name: 'AccountHeader',
+    setup() {
+      const store = useAuthStore()
+      let id = ref(Number(''))
+      let token = ref('')
+      const logout = () => store.logout(id.value, token.value)
+      const customer_name = store.me.username
+      const customer_mobile = store.me.mobile
+      return{
+        customer_name,
+        customer_mobile,
+        async logoutUser() {
+          id.value = store.me.id
+          token.value = store.refresh_token
+          console.log(id.value, token.value)
+          await logout(id.value, token.value)
+        }
+      }
+    },
+    // data() {
+    //   return {
+    //     id: ref(Number('')),
+    //     token: ref('')
+    //   }
+    // }
   }
 </script>
 

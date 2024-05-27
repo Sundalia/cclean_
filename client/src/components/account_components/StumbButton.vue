@@ -2,7 +2,7 @@
   <div class="stumb_button__container">
     <q-btn
       class="stumb_button"
-      to="account/order"
+      to="order"
       label="РАССЧИТАТЬ СТОИМОСТЬ УБОРКИ"
     />
   </div>

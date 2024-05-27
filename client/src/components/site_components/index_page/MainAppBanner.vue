@@ -7,7 +7,7 @@
       </div>
       <div class="main_app_banner__text_box">
         <p class="main_app_banner__text">
-          В нашем приложении вы сможете:
+          У нас в разработке приложение,  там в скором времени вы сможете:
         </p>
         <ul class="main_app_banner__text_list">
           <li>отслеживать статус уборки и получать полный отчёт по окончании</li>

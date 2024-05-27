@@ -42,6 +42,7 @@
               <PortfolioCard
                 header="Генеральная уборка"
                 :slides="slides"
+                :slide="slide"
               />
           </q-tab-panel>
 
@@ -49,6 +50,7 @@
               <PortfolioCard
                 header="Поддерживающая уборка"
                 :slides="slides"
+                :slide="slide"
               />
           </q-tab-panel>
 
@@ -71,12 +73,9 @@ import PortfolioCard from 'components/site_components/portfolio_page/subcomponen
     setup () {
       return {
         tab: ref('spring'),
-        splitterModel: ref(5)
-      }
-    },
-    data() {
-      return {
-        slides: [],
+        splitterModel: ref(5),
+        slides: ref([]),
+        slide: ref(''),
         header: "Генеральная уборка"
       }
     },
@@ -84,6 +83,8 @@ import PortfolioCard from 'components/site_components/portfolio_page/subcomponen
       this.$api.get('/cleaning_type/1.json')
         .then(res => {
           this.slides = res.data.portfolio.map((i) => i)
+          this.slide = this.slides[0].name
+          console.log(this.slide)
           
         })
         .catch(err => console.log(err))
@@ -94,7 +95,7 @@ import PortfolioCard from 'components/site_components/portfolio_page/subcomponen
 
 <style lang="scss" scoped>
 .portfolio_menu__container {
-  margin-top: 3rem;
+  padding-top: 3rem;
 }
 
 .portfolio_menu__menu {

@@ -1,3 +1,5 @@
+
+
 const routes = [
   {
     path: '/',
@@ -16,37 +18,41 @@ const routes = [
       { path: 'portfolio', component: () => import('pages/Site/PortfolioPage.vue') },
       { path: 'contact_us', component: () => import('pages/Site/ContactPage.vue') },
       { path: 'vacancies', component: () => import('pages/Site/VacanciesPage.vue') },
-      { path: 'documents', component: () => import('pages/Site/DocumentsPage.vue') },     
+      { path: 'documents', component: () => import('pages/Site/DocumentsPage.vue') },
     ],
   },
   {
     path: '/account',
     component: () => import('layouts/AccountLayout.vue'),
     children: [
+      { path: '', component: () =>import('components/account_components/StumbButton.vue')},
       { path: 'order', component: () =>import('pages/Account/OrderPage.vue') },
       { path: 'order_list', component: () =>import('pages/Account/MyOrdersPage.vue') },
       { path: 'promo', component: () =>import('pages/Account/PromoPage.vue') },
-      { path: 'pay', component: () =>import('pages/Account/PayPage.vue') },
-      { path: 'support', component: () =>import('pages/Account/SupportPage.vue') },
+      { path: 'pay', component: () =>import('pages/Account/PayPage.vue') }
     ],
   },
   {
     path:'/login',
+    createMemoryHistory: false,
     component: () => import('layouts/EmptyLayout.vue'),
     children: [
       { path: 'authentication', component: () => import('pages/Empty/AuthenticationPage.vue') },
       { path: 'authentication_cleaner', component: () => import('pages/Empty/AuthenticationCleanerPage.vue') },
       { path: 'registration', component: () => import('pages/Empty/RegistrationPage.vue') },
       { path: 'registration_cleaner', component: () => import('pages/Empty/RegistrationCleanerPage.vue') },
+      { path: 'sms', component: () => import('pages/Empty/SmsVerificationPage.vue') }
     ]
   },
 
   // Always leave this as last one,
   // but you can also remove it
-  
+
   {
      path: '/:catchAll(.*)*', component: () => import('../pages/Empty/NotFoundPage.vue')
   }
 ]
+
+
 
 export default routes

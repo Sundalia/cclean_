@@ -8,8 +8,10 @@
         :visible="true"
         :thumb-style="{background: '#FF6105', opacity: 1}"
       >
-       <FeedbackCell v-for="n in 10" :key="n"/>
-      </q-scroll-area>  
+        <div v-for="n in this.feedback" :key="n">
+          <FeedbackCell  :name="n.name" :stars="n.feedback_rating" :body="n.feedback_body"/>
+        </div>
+      </q-scroll-area>
 
     </div>
 
@@ -22,14 +24,14 @@
 
       <div class="main_h2__text_box">
         <p class="main_h2__text">
-          Отзывами о нашей работе мы гордимся и ценим, 
-          они помогают нам стать лучше, ради чего в любую погоду едем даже в самые отдалённые районы делать на совесть свою работу. 
+          Отзывами о нашей работе мы гордимся и ценим,
+          они помогают нам стать лучше, ради чего в любую погоду едем даже в самые отдалённые районы делать на совесть свою работу.
           Потому наши отзывы настоящие и умеют греть наши сердечки.
         </p>
       </div>
       <div class="main_feedback__btn_container">
 
-        <q-btn class="main__button">
+        <q-btn class="main__button" type="a" to="login/registration">
           ОСТАВИТЬ ОТЗЫВ
         </q-btn>
       </div>
@@ -41,6 +43,7 @@
 
 <script>
 import FeedbackCell from './subcomponents/FeedbackCell.vue';
+import {ref} from "vue";
 
 
 export default({
@@ -48,14 +51,21 @@ export default({
   components: {
     FeedbackCell
   },
-  data () {
+  data() {
     return {
-
+      feedback: ref([]),
     }
   },
-  methods: {
-
-  },
+  beforeCreate() {
+    this.$api.get('/feedback.json')
+      .then(res => {
+        console.log(res.data.map(i => i))
+        this.feedback = res.data.map(i => i)
+      })
+      .catch(err => {
+        console.log(err.data)
+      })
+  }
 })
 </script>
 
@@ -89,7 +99,7 @@ export default({
     display: grid;
     grid-template-columns: repeat(1, 1fr);
   }
-  
+
   .main_feedback__text_container{
     order: -1;
   }

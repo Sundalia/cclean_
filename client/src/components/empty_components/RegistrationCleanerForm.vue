@@ -79,15 +79,15 @@
       </q-input>
 
       <div class="registration_form__toggle_box">
-        <q-toggle 
+        <q-toggle
         class="registration_form__toggle"
-        v-model="accept" 
+        v-model="accept"
         :value="accept"
         />
         <p class="registration_form__toggle_text">Я принимаю условия&nbsp;
-          <router-link 
-            to="/documents" 
-            target="_blank" 
+          <router-link
+            to="/documents"
+            target="_blank"
             class="registration_form__toggle_link"
           >
           Договора подряда клинера
@@ -97,10 +97,10 @@
       </div>
 
       <div class="registration_form__submit_box">
-        <q-btn 
+        <q-btn
           class="registration_form__submit"
           label="Зарегистрироваться"
-          type="submit" 
+          type="submit"
           color="accent"
         />
       </div>
@@ -118,8 +118,8 @@
 import EmptyHeaderCleaner from './subcomponents/EmptyHeaderCleaner.vue'
 import { ref } from 'vue'
 import { useQuasar } from 'quasar'
-import { accounts } from 'src/boot/axios'
-// import { useRouter } from 'vue-router'
+import { useAuthStore } from "stores/authStore"
+import { useRouter } from 'vue-router'
 
   export default {
     name: 'RegistrationCleanerForm',
@@ -128,8 +128,9 @@ import { accounts } from 'src/boot/axios'
     },
     setup() {
       const $q = useQuasar()
-      // const router = useRouter()
-
+      const router = useRouter()
+      const store = useAuthStore()
+      const registration = () => store.registrationCleaner(phone, name.value, password.value)
       const phone = ref('')
       const name = ref('')
       const password = ref('')
@@ -147,7 +148,7 @@ import { accounts } from 'src/boot/axios'
         isPwd,
         isPwdCfm,
 
-        onSubmit() {
+        async onSubmit() {
           if(this.accept === false) {
             $q.notify({
               color: 'red-5',
@@ -164,27 +165,10 @@ import { accounts } from 'src/boot/axios'
                 position: 'center'
               })
             } else {
-              let cutedPhone=this.phone.replace(/[^0-9+]+/gi, '')
-
-              accounts.post(`/users/`,{
-                mobile: cutedPhone,
-                username: this.name,
-                password: this.password,
-                is_cleaner: true,
-                is_customer: false
-              })
-              .then((res) => {
-                console.log(res)
-              })
-              .catch((err) => {
-                console.log(JSON.stringify(err.response.data))
-                $q.notify({
-                  color: 'red-5',
-                  textColor: 'white',
-                  position: 'center',
-                  message: `${JSON.stringify(err.response.data).replace(/[`",.<>\\{\\}\\[\]]/gi, '')}`
-                })
-              })
+              await registration(phone, name.value, password.value)
+                .then(
+                  router.push({path: '/login/sms'})
+                )
             }
           }
         }
@@ -272,12 +256,12 @@ import { accounts } from 'src/boot/axios'
   font-size: 1rem;
 }
 
-.registration_form__router_tab_text { 
+.registration_form__router_tab_text {
   text-decoration: none;
   color: $accent;
 }
 
-.registration_form__router_tab_text:hover { 
+.registration_form__router_tab_text:hover {
   font-weight: bold;
 }
 

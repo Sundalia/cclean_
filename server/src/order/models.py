@@ -1,9 +1,14 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.core.validators import FileExtensionValidator
+# from django.core.validators import FileExtensionValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.urls import reverse
 from src.user.models import User
 from PIL import Image
+from decimal import Decimal
+
+
+PERCENTAGE_VALIDATOR = [MinValueValidator(Decimal(0)), MaxValueValidator(Decimal(100))]
 
 
 
@@ -40,8 +45,7 @@ class PortfolioImage(models.Model):
     name=models.CharField(max_length=100, verbose_name='название изображения', default='Название', unique=True)
     picture=models.ImageField(
         upload_to='portfolio/%Y/%m/%d/',
-        verbose_name='изображение',
-        
+        verbose_name='изображение' 
     )
     description=models.TextField(max_length=2000, verbose_name='описание')
     created=models.DateTimeField(auto_now_add=True, verbose_name='Создано')
@@ -187,8 +191,8 @@ class CleaningTypeLocation(models.Model):
      
      def get_absolute_url(self):
          return reverse("cleaning_type_location_detail", kwargs={"pk": self.pk})  
-      
-
+     
+     
 
 class FurnitureCluttered(models.Model):
     name=models.CharField(max_length=100, verbose_name='Степень заставленности мебелью')
@@ -196,6 +200,7 @@ class FurnitureCluttered(models.Model):
     created=models.DateTimeField(auto_now_add=True, verbose_name='Создано')
     updated=models.DateTimeField(auto_now=True, verbose_name='Обновлено')
     is_published=models.BooleanField(default=True, verbose_name='Опубликовано')
+    markup=models.DecimalField(max_digits=3, decimal_places=0, default=0, validators=PERCENTAGE_VALIDATOR, verbose_name="Наценка в процентах")
     
     class Meta:
         verbose_name='Степень заставленности мебелью'
@@ -216,6 +221,7 @@ class PollutionDegree(models.Model):
     created=models.DateTimeField(auto_now_add=True, verbose_name='Создано')
     updated=models.DateTimeField(auto_now=True, verbose_name='Обновлено')
     is_published=models.BooleanField(default=True, verbose_name='Опубликовано')
+    markup=models.DecimalField(max_digits=3, decimal_places=0, default=0, validators=PERCENTAGE_VALIDATOR, verbose_name="Наценка в процентах")
     
     class Meta:
         verbose_name='Степень загрязнения'
@@ -232,7 +238,7 @@ class PollutionDegree(models.Model):
 class Promo(models.Model):
     name=models.CharField(max_length=150, verbose_name='Название акции')
     description=models.CharField(max_length=2000, verbose_name='Описание акции')
-    price=models.DecimalField(max_digits=9,decimal_places=2, verbose_name='Цена')
+    markup=models.DecimalField(max_digits=3, decimal_places=0, default=0, validators=PERCENTAGE_VALIDATOR, verbose_name="Скидка в процентах")
     promocode=models.TextField(verbose_name='Промокод', blank=True, null=True)
     cleaning_type=models.OneToOneField(
         CleaningType, 
@@ -259,7 +265,7 @@ class Promo(models.Model):
     
 class RoomType(models.Model):
     name=models.CharField(max_length=150, verbose_name='Название помещения')
-    price=models.DecimalField(max_digits=9,decimal_places=2, verbose_name='Цена за кв.м')
+    markup=models.DecimalField(max_digits=3, decimal_places=0, default=0, validators=PERCENTAGE_VALIDATOR, verbose_name="Наценка в процентах")
     created=models.DateTimeField(auto_now_add=True, verbose_name='Создано')
     updated=models.DateTimeField(auto_now=True, verbose_name='Обновлено')
     is_published=models.BooleanField(default=True, verbose_name='Опубликовано')
@@ -320,9 +326,16 @@ class Order(models.Model):
         null=True,
         verbose_name='Фото квартиры'
     )
-    window_clean=models.BooleanField(default=False, verbose_name='Мыть ли окна?')
+    is_windows = models.BooleanField(default=False, verbose_name='Мойка окон')
+    is_microwave = models.BooleanField(default=False, verbose_name='Мойка микроволновки')
+    is_oven = models.BooleanField(default=False, verbose_name='Мойка духового шкафа')
+    is_garbage = models.BooleanField(default=False, verbose_name='Вынос мусора')
+    is_fridge = models.BooleanField(default=False, verbose_name='Мойка холодильника')
+    is_linen = models.BooleanField(default=False, verbose_name='Погладить бельё')
+    is_deep_floor = models.BooleanField(default=False, verbose_name='Глубокая чистка пола')
+    is_tile_joint = models.BooleanField(default=False, verbose_name='Чистка межплиточных швов')
     address=models.CharField(max_length=255, verbose_name='Адрес')
-    comment=models.TextField(max_length=1000, verbose_name='Пожелания/комментарии')
+    comment=models.TextField(max_length=1000, verbose_name='Пожелания/комментарии', blank=True, null=True)
     promo=models.ForeignKey(
         Promo, 
         on_delete=models.PROTECT, 
@@ -330,7 +343,7 @@ class Order(models.Model):
         blank=True,
         null=True
     )
-    price=models.DecimalField(max_digits=9,decimal_places=2, verbose_name='Цена')
+    price=models.CharField(max_length=100, verbose_name='Цена')
     created=models.DateTimeField(auto_now_add=True, verbose_name='Создано')
     updated=models.DateTimeField(auto_now=True, verbose_name='Обновлено')
     is_published=models.BooleanField(default=True, verbose_name='Опубликовано')
@@ -383,6 +396,13 @@ class FeedBack(models.Model):
         on_delete=models.PROTECT,
         verbose_name='Заказ'
     )
+    
+    cleaning_type=models.ForeignKey(
+        CleaningType,
+        on_delete=models.PROTECT,
+        verbose_name='Тип уборки'
+    )
+    
     feedback_body=models.TextField(max_length=1000, verbose_name='Отзыв')
     
     RATING_CHOICES = [
@@ -397,6 +417,8 @@ class FeedBack(models.Model):
     created=models.DateTimeField(auto_now_add=True, verbose_name='Создано')
     updated=models.DateTimeField(auto_now=True, verbose_name='Обновлено')
     is_published=models.BooleanField(default=True, verbose_name='Опубликовано')
+
+
     
     class Meta:
         verbose_name='Отзыв'

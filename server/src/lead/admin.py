@@ -8,11 +8,14 @@ class LeadAdmin(admin.ModelAdmin):
     'counter_room',
     'counter_toilet',
     'phone_number',
+    'price',
     'created',
     'updated'
   )
   list_filter=[
     'cleaning_type',
+    'phone_number',
+    'price',
     'created',
     'updated'
   ]

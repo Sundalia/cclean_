@@ -10,6 +10,7 @@ class Lead(models.Model):
   updated=models.DateTimeField(auto_now=True, verbose_name='Обновлено')
   is_treatmened=models.BooleanField(verbose_name="Обрабртано", default=False)
   comment=models.CharField(verbose_name="комментарий", blank=True, null=True, max_length=1000)
+  price=models.CharField(verbose_name="Предварительная цена", blank=True, null=True)
   
   class Meta:
     verbose_name='Лид'

@@ -38,11 +38,11 @@
                             <q-separator/>
                             <q-btn-group flat class="main_header__social_links_group_burger">
 
-                                <q-btn 
+                                <q-btn
                                     class="main_header__social_links_burger"
-                                    type="a" 
+                                    type="a"
                                     size="md"
-                                    href="tel:+79812007083" 
+                                    href="tel:+79812007083"
                                     target="_blank"
                                     rounded
                                 >
@@ -54,11 +54,11 @@
                                     </q-tooltip>
                                 </q-btn>
 
-                                <q-btn 
+                                <q-btn
                                     class="main_header__social_links_burger"
                                     type="a"
                                     size="md"
-                                    href="https://t.me/ccleansp" 
+                                    href="https://t.me/ccleansp"
                                     target="_blank"
                                     rounded
                                 >
@@ -70,11 +70,11 @@
                                     </q-tooltip>
                                 </q-btn>
 
-                                <q-btn 
+                                <q-btn
                                     class="main_header__social_links_burger"
-                                    type="a" 
+                                    type="a"
                                     size="md"
-                                    href="https://wa.me/qr/Y4Z6OVFJ5KTPD1" 
+                                    href="https://wa.me/qr/Y4Z6OVFJ5KTPD1"
                                     target="_blank"
                                     rounded
                                 >
@@ -87,14 +87,14 @@
                                 </q-btn>
 
                             </q-btn-group>
-                            
+
                         </q-tabs>
                     </q-menu>
                 </q-btn>
 
                 <q-toolbar-title class="row main_header__logo">
                     <q-avatar square size="30px" >
-                        <img class="main_header__logo_img" src="../../assets/icons/cclean_logo.svg"/> 
+                        <img class="main_header__logo_img" src="../../assets/icons/cclean_logo.svg"/>
                     </q-avatar>
                     <router-link class="main_header__logo_name" to="/">
                         C-CLEAN
@@ -105,11 +105,11 @@
 
                 <q-btn-group flat rounded class="main_header__social_links_group">
 
-                    <q-btn 
+                    <q-btn
                         class="main_header__social_links"
-                        type="a" 
+                        type="a"
                         size="md"
-                        href="tel:+79812007083" 
+                        href="tel:+79812007083"
                         target="_blank"
                         rounded
                     >
@@ -121,11 +121,11 @@
                         </q-tooltip>
                     </q-btn>
 
-                    <q-btn 
+                    <q-btn
                         class="main_header__social_links"
                         type="a"
                         size="md"
-                        href="https://t.me/ccleansp" 
+                        href="https://t.me/ccleansp"
                         target="_blank"
                         rounded
                     >
@@ -137,11 +137,11 @@
                         </q-tooltip>
                     </q-btn>
 
-                    <q-btn 
+                    <q-btn
                         class="main_header__social_links"
-                        type="a" 
+                        type="a"
                         size="md"
-                        href="https://wa.me/qr/Y4Z6OVFJ5KTPD1" 
+                        href="https://wa.me/qr/Y4Z6OVFJ5KTPD1"
                         target="_blank"
                         rounded
                     >
@@ -154,21 +154,38 @@
                     </q-btn>
 
                 </q-btn-group>
-                
-                <q-btn 
+
+                <q-btn
+                    v-show="isAuthenticated === false"
                     size="sm"
-                    flat 
-                    rounded 
-                    type="a" 
-                    to="login/authentication" 
+                    flat
+                    rounded
+                    type="a"
+                    to="login/authentication"
                 >
                     <q-avatar square>
                         <img src="../../assets/icons/login.svg" style="width: 20px;"/>
                     </q-avatar>
                     <q-tooltip>
-                        Личный кабинет
+                        Вход в Личный кабинет
                     </q-tooltip>
                 </q-btn>
+
+              <q-btn
+                v-show="isAuthenticated === true"
+                size="sm"
+                flat
+                rounded
+                type="a"
+                to="account/order"
+              >
+                <q-avatar square>
+                  <q-icon name="person" size="20px" color="accent"/>
+                </q-avatar>
+                <q-tooltip>
+                  Личный кабинет
+                </q-tooltip>
+              </q-btn>
 
             </q-toolbar>
 
@@ -180,10 +197,17 @@
 
 
 
+import {useAuthStore} from "stores/authStore";
+
 export default({
     name: 'HeaderItem',
-    components: {
-
+    setup() {
+      const store = useAuthStore()
+      const isAuthenticated = store.isAuthenticated
+      console.log(isAuthenticated)
+      return {
+        isAuthenticated
+      }
     }
 })
 </script>

@@ -5,39 +5,23 @@ from .models import *
 
 
 class RoomTypeSerializer(serializers.ModelSerializer):
-    model=RoomType
-    fields=(
-        'name',
-        'type',
-        'created',
-        'updated',
-        'is_published'
-    )
+    
+    class Meta:
+        model=RoomType
+        fields=(
+            'name',
+            'markup',
+            'created',
+            'updated',
+            'is_published'
+        )
 
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model=Order
-        fields=(
-            'customer', 
-            'cleaning_type', 
-            'square', 
-            'furniture_cluttered', 
-            'pollution_degree',
-            'room_type',
-            'cleaning_date',
-            'cleaning_time',
-            'photo',
-            'window_clean',
-            'address',
-            'comment',
-            'promo',
-            'price',
-            'created',
-            'updated',
-            'is_published',
-            'cleaners_photo'
-        )
+        fields='__all__'
+\
         
         
 class FurnitureClutteredSerialier(serializers.ModelSerializer):
@@ -46,6 +30,7 @@ class FurnitureClutteredSerialier(serializers.ModelSerializer):
         fields=(
             'name',
             'description',
+            'markup',
             'created',
             'updated',
             'is_published'
@@ -58,6 +43,7 @@ class PollutionDegreeSerialier(serializers.ModelSerializer):
         fields=(
             'name',
             'description',
+            'markup',
             'created',
             'updated',
             'is_published'
@@ -69,7 +55,7 @@ class  PromoSerializer(serializers.ModelSerializer):
         fields=(
             'name',
             'description',
-            'price',
+            'markup',
             'promocode',
             'cleaning_type',       
             'created',
@@ -201,6 +187,7 @@ class FeedBackSerializer(serializers.ModelSerializer):
         fields=(
             'name',
             'order',
+            'cleaning_type',
             'feedback_body',
             'feedback_rating',
             'created',

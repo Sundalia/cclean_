@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from datetime import timedelta
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -18,7 +19,7 @@ SECRET_KEY = str(os.getenv("SECRET_KEY"))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv("DEBUG", default=0))
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'ccleantest.tw1.ru', '92.255.109.20']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'ccleantest.tw1.ru', '92.255.109.20', 'http://192.168.1.108:8080/']
 
 # Application definition
 
@@ -30,10 +31,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     'rest_framework.authtoken',
     'corsheaders',
     'drf_yasg',
-    'djoser',
     'dotenv',
     'src.order.apps.OrderConfig',
     'src.user.apps.UserConfig',
@@ -82,7 +84,7 @@ DATABASES = {
         'NAME': str(os.getenv("SQL_DATABASE")),
         'USER': str(os.getenv("SQL_USER")),
         'PASSWORD': str(os.getenv("SQL_PASSWORD")),
-        'HOST': str(os.getenv("SQL_HOST")),
+        'HOST': str(os.getenv("SQL_HOST_DEV")),
         'PORT': str(os.getenv("SQL_PORT")),
     }
 }
@@ -118,6 +120,8 @@ USE_I18N = True
 
 USE_TZ = True
 
+DATE_INPUT_FORMATS = ['%d/%m/%Y']
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -134,33 +138,46 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.simplejwt.authentication.JWTAuthentication'
+
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        
     ]
 }
 
-DJOSER = {
-    'PASSWORD_RESET_CONFIRM_URL': '#/password-reset/{uid}/{token}',
-    'USERNAME_RESET_CONFIRM_URL': '#/username-reset/{uid}/{token}',
-    'ACTIVATION_URL': '#/activate/{uid}/{token}'
+AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
+    )
+
+SIMPLE_JWT = {
+
+    'ROTATE_REFRESH_TOKENS': True,
+
+    'BLACKLIST_AFTER_ROTATION': True,
+
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=30),
+
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=60),
+
 }
 
 AUTH_USER_MODEL='user.User'
 
+APPEND_SLASH=False
+
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:8080', 
-    'http://127.0.0.1',
+    'http://127.0.0.1:8080',
     'http://ccleantest.tw1.ru',
-    'http://92.255.109.20'
+    'http://92.255.109.20',
+    'http://192.168.1.108:8080'
 )
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8080', 
-    'http://127.0.0.1',
+    'http://127.0.0.1:8080',
     'http://ccleantest.tw1.ru',
-    'http://92.255.109.20'
+    'http://92.255.109.20',
+    'http://192.168.1.108:8080'
 ]
 
 CORS_ALLOW_METHODS = [
@@ -184,3 +201,4 @@ CORS_ALLOW_HEADERS = [
 'x-requested-with'
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True

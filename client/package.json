@@ -16,12 +16,18 @@
     "@quasar/extras": "^1.16.4",
     "axios": "^1.2.1",
     "core-js": "^3.31.1",
+    "crypto": "^1.0.1",
     "moment": "^2.30.1",
+    "os": "^0.1.2",
+    "path": "^0.12.7",
     "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.1",
     "quasar": "^2.8.0",
     "swiper": "^10.3.0",
     "vue": "^3.2.29",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "vue-yandex-maps": "^2.1.2",
+    "ymaps": "^0.2.1"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",

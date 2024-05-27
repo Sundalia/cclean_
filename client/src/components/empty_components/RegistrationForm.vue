@@ -1,6 +1,7 @@
 <template>
   <div class="registration_form__container">
     <q-form
+      name="registration_form"
       class="registration_form__form"
       @submit="onSubmit()"
     >
@@ -79,28 +80,29 @@
       </q-input>
 
       <div class="registration_form__toggle_box">
-        <q-toggle 
+        <q-toggle
         class="registration_form__toggle"
-        v-model="accept" 
+        v-model="accept"
         :value="accept"
         />
-        <p class="registration_form__toggle_text">Я принимаю условия&nbsp;
-          <router-link 
-            to="/documents" 
-            target="_blank" 
+        <p class="registration_form__toggle_text">
+          Я принимаю условия&nbsp;
+          <router-link
+            to="/documents"
+            target="_blank"
             class="registration_form__toggle_link"
           >
-          Пользовательского соглашения
+            Пользовательского соглашения
           </router-link>
         </p>
 
       </div>
 
       <div class="registration_form__submit_box">
-        <q-btn 
+        <q-btn
           class="registration_form__submit"
           label="Зарегистрироваться"
-          type="submit" 
+          type="submit"
           color="accent"
         />
       </div>
@@ -118,10 +120,10 @@
 import EmptyHeader from './subcomponents/EmptyHeader.vue'
 import { ref } from 'vue'
 import { useQuasar } from 'quasar'
-import { accounts } from 'src/boot/axios'
+import { useAuthStore } from "stores/authStore"
 // import { useRouter } from 'vue-router'
 
-  export default {
+export default {
     name: 'RegistrationForm',
     components: {
       EmptyHeader
@@ -129,6 +131,9 @@ import { accounts } from 'src/boot/axios'
     setup() {
       const $q = useQuasar()
       // const router = useRouter()
+      const store = useAuthStore()
+      const registration = () => store.registrationCustomer(phone, name.value, password.value)
+
 
       const phone = ref('')
       const name = ref('')
@@ -147,7 +152,7 @@ import { accounts } from 'src/boot/axios'
         isPwd,
         isPwdCfm,
 
-        onSubmit() {
+        async onSubmit() {
           if(this.accept === false) {
             $q.notify({
               color: 'red-5',
@@ -164,37 +169,13 @@ import { accounts } from 'src/boot/axios'
                 position: 'center'
               })
             } else {
-              let cutedPhone=this.phone.replace(/[^0-9+]+/gi, '')
+              await registration(phone, name.value, password.value)
 
-              accounts.post(`/users/`,{
-                mobile: cutedPhone,
-                username: this.name,
-                password: this.password,
-                is_cleaner: false,
-                is_customer: true
-              })
-              .then((res) => {
-                  console.log(res)
-                  this.$router.push('account/order')
-              })
-              .catch((err) => {
-                console.log(JSON.stringify(err.response.data))
-                $q.notify({
-                  color: 'red-5',
-                  textColor: 'white',
-                  position: 'center',
-                  message: `${JSON.stringify(err.response.data).replace(/[`",.<>\\{\\}\\[\]]/gi, '')}`
-                })
-              })
             }
           }
         }
       }
     },
-    methods: {
-    },
-
-
   }
 </script>
 
@@ -273,12 +254,12 @@ import { accounts } from 'src/boot/axios'
   font-size: 1rem;
 }
 
-.registration_form__router_tab_text { 
+.registration_form__router_tab_text {
   text-decoration: none;
   color: $accent;
 }
 
-.registration_form__router_tab_text:hover { 
+.registration_form__router_tab_text:hover {
   font-weight: bold;
 }
 

@@ -2,25 +2,25 @@
     <q-layout>
         <q-page-container class="order_layout">
             <AccountHeader/>
+            <TabMenuDesktop/>
             <router-view/>
-            <StumbButton/>
-            <TabMenuItem/>
+            <TabMenuMobile/>
         </q-page-container>
     </q-layout>
 </template>
 
 <script>
-import TabMenuItem from 'src/components/account_components/TabMenuItem.vue'
+import TabMenuDesktop from 'src/components/account_components/TabMenuDesktop.vue';
+import TabMenuMobile from 'src/components/account_components/TabMenuMobile.vue'
 import AccountHeader from 'src/components/account_components/AccountHeader.vue'
-import StumbButton from 'src/components/account_components/StumbButton.vue'
 
 
 export default({
     name: 'AccountLayout',
     components: {
-        TabMenuItem,
+        TabMenuMobile,
         AccountHeader,
-        StumbButton
+        TabMenuDesktop
     }
 })
 </script>

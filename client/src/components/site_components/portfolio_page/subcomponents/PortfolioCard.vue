@@ -11,7 +11,7 @@
         swipeable
         :autoplay="autoplay"
         animated
-        v-model="slide"
+        :model-value="slide"
         navigation
         infinite
         arrows
@@ -50,15 +50,20 @@ import { ref } from 'vue'
     name: 'PortfolioCard',
     props: {
       header: {
-        type: String
+        type: String,
+        required: true
       },
       slides: {
-        type: Array
+        type: Array,
+        required: true
+      },
+      slide: {
+        Type: String,
+        required: true
       }
     },
     data() {
       return {
-        slide: ref('Лаврики'),
         autoplay: ref(true)
       }
     }

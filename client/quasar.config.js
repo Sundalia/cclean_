@@ -12,6 +12,7 @@ const ESLintPlugin = require('eslint-webpack-plugin')
 
 const { configure } = require('quasar/wrappers')
 
+
 module.exports = configure(function (ctx) {
   return {
     // https://v2.quasar.dev/quasar-cli-webpack/supporting-ts
@@ -25,7 +26,8 @@ module.exports = configure(function (ctx) {
     // https://v2.quasar.dev/quasar-cli-webpack/boot-files
     boot: [
 
-      'axios'
+      'axios',
+      'auth_guard'
     ],
 
     // https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-css

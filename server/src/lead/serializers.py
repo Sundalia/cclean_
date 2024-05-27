@@ -8,7 +8,8 @@ class LeadSerializer(serializers.ModelSerializer):
       'cleaning_type',
       'counter_room',
       'counter_toilet',
-      'phone_number'
+      'phone_number',
+      'price'
     )
     
     

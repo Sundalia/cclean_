@@ -10,6 +10,7 @@ djoser = "*"
 psycopg = "*"
 drf-yasg = "*"
 django-cors-headers = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

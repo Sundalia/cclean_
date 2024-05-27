@@ -2,9 +2,16 @@
   <div class="empty_header__container">
     <div class="row empty_header__logo_box">
         <q-avatar square size="4rem" >
-          <img class="empty_header__logo_img" src="../../../assets/icons/cclean_logo.svg"/> 
+          <img class="empty_header__logo_img" src="../../../assets/icons/cclean_logo.svg"/>
         </q-avatar>
-        <h2 class="empty_header__logo_text">CCLEAN</h2>
+      <h2>
+        <router-link class="empty_header__logo_text" to="/">
+          <q-tooltip>
+            Перейти на главную сайта
+          </q-tooltip>
+          CCLEAN
+        </router-link>
+      </h2>
       </div>
       <div>
         <h3 class="empty_header__logo_subheader">ДЛЯ КЛИНЕРА</h3>
@@ -37,6 +44,7 @@
   color: $accent;
   font-weight: bold;
   font-size: 2.6rem;
+  text-decoration: none;
 }
 
 .empty_header__logo_subheader{
