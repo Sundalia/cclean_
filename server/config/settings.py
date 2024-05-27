@@ -19,7 +19,7 @@ SECRET_KEY = str(os.getenv("SECRET_KEY"))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv("DEBUG", default=0))
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'ccleantest.tw1.ru', '92.255.109.20', 'http://192.168.1.108:8080/']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'cclean.tw1.ru', '147.45.239.23', 'http://192.168.1.108:8080/']
 
 # Application definition
 
@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': str(os.getenv("SQL_DATABASE")),
         'USER': str(os.getenv("SQL_USER")),
         'PASSWORD': str(os.getenv("SQL_PASSWORD")),
-        'HOST': str(os.getenv("SQL_HOST_DEV")),
+        'HOST': str(os.getenv("SQL_HOST")),
         'PORT': str(os.getenv("SQL_PORT")),
     }
 }

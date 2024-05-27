@@ -3,11 +3,11 @@ import axios from 'axios'
 import { createYmaps } from 'vue-yandex-maps'
 
 const api = axios.create({
-  baseURL: process.env.API_DEV
+  baseURL: process.env.API
 })
 
 const accounts = axios.create({
-  baseURL: process.env.AUTH_DEV
+  baseURL: process.env.AUTH
 })
 
 const geocoder = axios.create({

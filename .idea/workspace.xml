@@ -5,64 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c7c69352-a3e9-4e9a-b70e-059048a5592b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/boot/auth_guard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/media/portfolio/2024/05/26/4869979.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/order/migrations/0029_remove_order_window_clean_order_is_deep_floor_and_more.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/order/migrations/0030_alter_order_price.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/order/migrations/0031_alter_order_price.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/user/migrations/0009_user_is_varified.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/user/migrations/0010_rename_is_varified_user_is_verified.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/extensions.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/launch.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/.env" beforeDir="false" afterPath="$PROJECT_DIR$/client/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/quasar.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/quasar.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/assets/icons/cclean_logo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/assets/icons/cclean_logo.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/boot/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/boot/axios.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/account_components/AccountHeader.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/account_components/AccountHeader.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/account_components/OrderForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/account_components/OrderForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/account_components/OrdersTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/account_components/OrdersTable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/account_components/StumbButton.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/account_components/StumbButton.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/account_components/TabMenuItem.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/empty_components/AuthenticationForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/empty_components/AuthenticationForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/empty_components/RegistrationCleanerForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/empty_components/RegistrationCleanerForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/empty_components/RegistrationForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/empty_components/RegistrationForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/empty_components/subcomponents/EmptyHeader.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/empty_components/subcomponents/EmptyHeader.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/empty_components/subcomponents/EmptyHeaderCleaner.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/empty_components/subcomponents/EmptyHeaderCleaner.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/site_components/HeaderItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/site_components/HeaderItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/site_components/index_page/MainAppBanner.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/site_components/index_page/MainAppBanner.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/site_components/index_page/MainFeedback.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/site_components/index_page/MainFeedback.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/site_components/portfolio_page/PortfolioMenu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/site_components/portfolio_page/PortfolioMenu.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/site_components/portfolio_page/subcomponents/PortfolioCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/site_components/portfolio_page/subcomponents/PortfolioCard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/css/quasar.variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/css/quasar.variables.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/layouts/AccountLayout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/layouts/AccountLayout.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/Account/SupportPage.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/Site/ContactPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Site/ContactPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/router/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/router/routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/stores/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/stores/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.env" beforeDir="false" afterPath="$PROJECT_DIR$/server/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/Pipfile" beforeDir="false" afterPath="$PROJECT_DIR$/server/Pipfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/Pipfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/Pipfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/config/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/config/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/lead/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/lead/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/lead/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/lead/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/lead/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/lead/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/lead/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/order/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/order/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/order/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/order/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/order/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/order/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/managers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/user/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +77,7 @@
       <workItem from="1716713394992" duration="13609000" />
       <workItem from="1716742837795" duration="13751000" />
       <workItem from="1716796047430" duration="15369000" />
-      <workItem from="1716815910543" duration="6910000" />
+      <workItem from="1716815910543" duration="9796000" />
     </task>
     <servers />
   </component>
