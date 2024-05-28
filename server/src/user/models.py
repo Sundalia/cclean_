@@ -15,14 +15,6 @@ class CustomUserManager(UserManager):
         user.save(using=self._db)
         return user
     
-    def create_superuser(self, mobile, password):
-        user=self.create_user(mobile, password)
-        user.is_active=True
-        user.is_staff=True
-        user.is_superuser=True
-        user.save(using=self._db)
-        return user
-    
     
 class User(AbstractUser, PermissionsMixin):
     username=models.CharField(max_length=150, verbose_name='Имя', unique=False)
